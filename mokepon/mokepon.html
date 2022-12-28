@@ -10,32 +10,33 @@
         se va a realizar por medio de un evento.-->
 </head>
 <body>
-    <h1> MOKEPON! 🔥💧🌱</h1>
-    <section id="seleccionar-mascota">
-        <h2>Elige tu mascota</h2>
+    <h1> COMBATE POR LA  PRINCESA PEACH! 🔥💧🪓</h1>
+    <section id="seleccionar-personaje">
+        <h2>Elige tu personaje</h2>
 
-        <label for="hipodoge">Hipodoge</label>
-        <input type="radio" name="mascota" id="hipodoge">
+        <input type="radio" name="personaje" id="mario">
+        <label for="mario">Mario</label>
+       
+        <input type="radio" name="personaje" id="luigi">
+        <label for="luigi">Luigi</label>
+       
+        <input type="radio" name="personaje" id="bowser">
+        <label for="bowser">Bowser|</label>
+        
 
-        <label for="capipepo">Capipepo</label>
-        <input type="radio" name="mascota" id="capipepo">
-
-        <label for="ratigueya">Ratigueya</label>
-        <input type="radio" name="mascota" id="ratigueya">
-
-        <button id="boton-mascota">Seleccionar</button>
+        <button id="boton-personaje">Seleccionar</button>
     </section>
     
     <section id="seleccionar-ataque">
         <h2>Elige tu ataque</h2>
 
-        <p>Tu mascota <span id="mascota-jugador"></span> tiene <span>3</span> vidas</p>
-        <p>La mascota <span id="mascota-enemigo"></span> del enemigo tiene <span>3</span> vidas</p>
+        <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+        <p>El personaje  <span id="personaje-enemigo"></span> elegido por el enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
 
         <p>
             <button id="boton-fuego">Fuego🔥</button>
             <button id="boton-agua">Agua 💧</button>
-            <button id="boton-tierra">Tierra 🌱</button>
+            <button id="boton-hacha">Hacha 🪓</button>
         </p>
     </section>
 
