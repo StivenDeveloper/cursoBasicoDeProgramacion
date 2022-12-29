@@ -7,11 +7,15 @@ let vidasEnemigo= 3;
 
 
 
-
 function iniciarJuego(){
+    let sectionAtaque = document.getElementById("seleccionar-ataque")
+    sectionAtaque.style.display = "none";
+    let sectionReiniciar =document.getElementById("reiniciar");
+    sectionReiniciar.style.display = "none";
     let botonPersonajeJugador = document.getElementById("boton-personaje");
     // El metodo getElementById nos permite hacer referencia a un elemento de html por medio de su ID
     botonPersonajeJugador.addEventListener("click", seleccionarPersonajeJugador);
+
     let botonFuego = document.getElementById("boton-fuego");
     botonFuego.addEventListener("click",ataqueFuego)
     let botonAgua = document.getElementById("boton-agua");
@@ -19,14 +23,22 @@ function iniciarJuego(){
     let botonHacha = document.getElementById("boton-hacha");
     botonHacha.addEventListener("click",ataqueHacha);
 
+    let botanReiniciar = document.getElementById("boton-reiniciar");
+    botanReiniciar.addEventListener("click",reiniciarJuego)
+
 }
 
 function seleccionarPersonajeJugador(){
+    let sectionAtaque = document.getElementById("seleccionar-ataque");
+    sectionAtaque.style.display = "block"
+
+    let sectionPersonaje = document.getElementById("seleccionar-personaje");
+    sectionPersonaje.style.display = "none"
+
     const inputMario = document.getElementById("mario");
     const inputLuigi = document.getElementById("luigi");
     const inputBowser = document.getElementById("bowser");
     const spanPersonajeJugador = document.getElementById("personaje-jugador");
-    
 
     if (inputMario.checked){
         spanPersonajeJugador.innerHTML = "Mario";
@@ -112,23 +124,50 @@ function resultadosCombate(){
         vidasJugador--;
         spanVidasJudador.innerHTML = vidasJugador
     }
-    
+    revisarVidas();
+}
+
+function revisarVidas(){
+    if (vidasEnemigo==0){
+        crearMensajeFinal("🎉🎉¡GANASTE LA PARTIDA!🎉🎉")
+    }else if(vidasJugador==0){
+        crearMensajeFinal("😭😭¡PERDISTE LA PARTIDA!😭😭")
+    }
+}
+
+function crearMensajeFinal(resultadofinal){
+    let sectionMensaje = document.getElementById("mensajes")
+    let parrafo = document.createElement("p")
+    parrafo.innerHTML = resultadofinal
+    sectionMensaje.appendChild(parrafo)
+
+    let botonFuego = document.getElementById("boton-fuego");
+    botonFuego.disabled = true
+    let botonAgua = document.getElementById("boton-agua");
+    botonAgua.disabled = true
+    let botonHacha = document.getElementById("boton-hacha");
+    botonHacha.disabled = true
+
+    let sectionReiniciar =document.getElementById("reiniciar");
+    sectionReiniciar.style.display = "block"
 }
 
 function crearMensaje(resultado){
 
-    sectionMensajes = document.getElementById("mensajes"); // Se obtiene la sección del mensaje.
+    let sectionMensaje = document.getElementById("mensajes"); // Se obtiene la sección del mensaje.
     let parrafo = document.createElement("p"); // Este método nos permite crear un elemento HTML especificando su (tagname=nombre de la etiqueta).
     // este método nos permite crear elementos html
     parrafo.innerHTML = "Tu personaje atacó con "+ataqueJugador+", el personaje del enemigo atacó con "+ataqueEnemigo+"; entonces "+resultado; 
     // Le pasamos el valor de la etiqueta creada por el anterior método. 
-    sectionMensajes.appendChild(parrafo); //le añade el texto al elemento creado. 
+    sectionMensaje.appendChild(parrafo); //le añade el texto al elemento creado. 
   
     
 
 }
 
-
+function reiniciarJuego(){
+    location.reload();
+}
 
 function Aleatorio(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
