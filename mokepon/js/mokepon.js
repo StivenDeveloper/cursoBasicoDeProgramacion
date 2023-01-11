@@ -4,9 +4,6 @@ let PersonajeJugador;
 let vidasJugador= 3;
 let vidasEnemigo= 3;
 
-
-
-
 function iniciarJuego(){
     let sectionAtaque = document.getElementById("seleccionar-ataque")
     sectionAtaque.style.display = "none";
@@ -30,10 +27,12 @@ function iniciarJuego(){
 
 function seleccionarPersonajeJugador(){
     let sectionAtaque = document.getElementById("seleccionar-ataque");
-    sectionAtaque.style.display = "block"
+    sectionAtaque.style.display = "flex"
 
     let sectionPersonaje = document.getElementById("seleccionar-personaje");
     sectionPersonaje.style.display = "none"
+
+    
 
     const inputMario = document.getElementById("mario");
     const inputLuigi = document.getElementById("luigi");
@@ -51,6 +50,7 @@ function seleccionarPersonajeJugador(){
         PersonajeJugador = "Bowser"
     } else{
         alert("Selecciona a un personaje para el ataque");
+        reiniciarJuego();
     }
     seleccionarPersonajeEnemigo();
 }
@@ -142,11 +142,11 @@ function crearMensajeFinal(resultadofinal){
     sectionMensaje.appendChild(parrafo)
 
     let botonFuego = document.getElementById("boton-fuego");
-    botonFuego.disabled = true
+    botonFuego.disabled = true;
     let botonAgua = document.getElementById("boton-agua");
-    botonAgua.disabled = true
+    botonAgua.disabled = true;
     let botonHacha = document.getElementById("boton-hacha");
-    botonHacha.disabled = true
+    botonHacha.disabled = true;
 
     let sectionReiniciar =document.getElementById("reiniciar");
     sectionReiniciar.style.display = "block"

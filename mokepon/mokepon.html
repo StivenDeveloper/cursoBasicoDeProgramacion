@@ -8,43 +8,71 @@
     <script src="./js/mokepon.js"></script> <!-- El atributo defer, permite que todo el 
         html se carge primero y luego el script, para que  no existan errores, pero en este caso
         se va a realizar por medio de un evento.-->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1> COMBATE POR LA  PRINCESA PEACH! 🔥💧🪓</h1>
     <section id="seleccionar-personaje">
-        <h2>Elige tu personaje</h2>
+        <h1 class="title"> COMBATE POR LA  PRINCESA PEACH! 🔥💧🪓</h1>
 
-        <input type="radio" name="personaje" id="mario">
-        <label for="mario">Mario</label>
-       
-        <input type="radio" name="personaje" id="luigi">
-        <label for="luigi">Luigi</label>
-       
-        <input type="radio" name="personaje" id="bowser">
-        <label for="bowser">Bowser|</label>
+        <h2 class="subtitle">Elige tu personaje</h2>
+
+        <div class="tarjetas">
+            <input type="radio" name="personaje" id="mario">
+            <label id="Mario" class="tarjeta-de-personajes" for="mario">
+                <p>Mario</p>
+                <img src="assets/pwd.png" alt="Mario">
+            </label>
+           
+            <input type="radio" name="personaje" id="luigi">
+            <label id="Luigi" class="tarjeta-de-personajes" for="luigi">
+                <p>Luigi</p>
+                <img src="assets/Luigi.png" alt="Luigi">
+            </label>
+           
+            <input type="radio" name="personaje" id="bowser">
+                <label id="Bowser" class="tarjeta-de-personajes" for="bowser">
+                <p>Bowser</p>
+                <img src="assets/Bowser_Stock_Art_2021.png" alt="Bowser">
+            </label>
+        </div>
+
         
 
         <button id="boton-personaje">Seleccionar</button>
     </section>
     
     <section id="seleccionar-ataque">
-        <h2>Elige tu ataque</h2>
+       
+        <img class="container-img-ataque" src="img/588319.png" alt="">
+        
+        <h2 class="subtitle">Elige tu ataque</h2>
 
-        <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-        <p>El personaje  <span id="personaje-enemigo"></span> elegido por el enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
-
-        <p>
+        <div>
             <button id="boton-fuego">Fuego🔥</button>
             <button id="boton-agua">Agua 💧</button>
             <button id="boton-hacha">Hacha 🪓</button>
-        </p>
+        </div>
+
+        <div>
+            <section id="mensajes">
+            </section>
+        
+            <section id="reiniciar">
+                <button id="boton-reiniciar">Reiniciar</button>
+            </section>
+        </div>
+
+        <div>
+            <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+            <p>El personaje  <span id="personaje-enemigo"></span> elegido por el enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+        </div>
+        
+
     </section>
 
-    <section id="mensajes">
-    </section>
-
-    <section id="reiniciar">
-        <button id="boton-reiniciar">Reiniciar</button>
-    </section>
+    
 </body>
 </html>
