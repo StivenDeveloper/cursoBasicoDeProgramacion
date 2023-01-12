@@ -51,23 +51,35 @@
         <h2 class="subtitle">Elige tu ataque</h2>
 
         <div>
-            <button id="boton-fuego">Fuego🔥</button>
-            <button id="boton-agua">Agua 💧</button>
-            <button id="boton-hacha">Hacha 🪓</button>
+            <button id="boton-fuego" class="boton-de-ataque"><span>Fuego🔥</span></button>
+            <button id="boton-agua" class="boton-de-ataque"><span>Agua💧</span></button>
+            <button id="boton-hacha" class="boton-de-ataque"><span>Hacha🪓</span></button>
         </div>
 
-        <div>
-            <section id="mensajes">
-            </section>
         
+        <div id="mensajes">
+            <p id="resultado">¡VAMOS!</p>
+
             <section id="reiniciar">
-                <button id="boton-reiniciar">Reiniciar</button>
+                <button id="boton-reiniciar">Volver a jugar</button>
             </section>
         </div>
 
-        <div>
-            <p>Tu personaje <span id="personaje-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-            <p>El personaje  <span id="personaje-enemigo"></span> elegido por el enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+           
+        
+
+        <div class="container-ataques">
+            <div class="bloque-jugador">
+                <p id="vidas-jugador">3</p>
+                <p id="personaje-jugador"></p>
+                <div id="ataque-del-jugador"></div>
+            </div>
+
+            <div class="bloque-enemigo">
+                <p id="vidas-enemigo">3</p>
+                <p id="personaje-enemigo"></p>
+                <div id="ataque-del-enemigo"></div>
+            </div>
         </div>
         
 

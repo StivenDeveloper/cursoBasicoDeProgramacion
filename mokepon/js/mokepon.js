@@ -136,10 +136,10 @@ function revisarVidas(){
 }
 
 function crearMensajeFinal(resultadofinal){
-    let sectionMensaje = document.getElementById("mensajes")
-    let parrafo = document.createElement("p")
-    parrafo.innerHTML = resultadofinal
-    sectionMensaje.appendChild(parrafo)
+    let sectionMensaje = document.getElementById("resultado")
+
+    sectionMensaje.innerHTML = resultadofinal
+    
 
     let botonFuego = document.getElementById("boton-fuego");
     botonFuego.disabled = true;
@@ -154,12 +154,24 @@ function crearMensajeFinal(resultadofinal){
 
 function crearMensaje(resultado){
 
-    let sectionMensaje = document.getElementById("mensajes"); // Se obtiene la sección del mensaje.
-    let parrafo = document.createElement("p"); // Este método nos permite crear un elemento HTML especificando su (tagname=nombre de la etiqueta).
+    let sectionMensaje = document.getElementById("resultado");
+    let ataqueDelJugador = document.getElementById("ataque-del-jugador");
+    let ataqueDelEnemigo = document.getElementById("ataque-del-enemigo"); // Se obtiene la sección del mensaje.
+    
+    
+    let nuevoAtaqueDelJugador = document.createElement("p")
+    let nuevoAtaqueDelEnemigo = document.createElement("p")
+
+    sectionMensaje.innerHTML = resultado
+    nuevoAtaqueDelJugador.innerHTML = ataqueJugador
+    nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo
+
+    // Este método nos permite crear un elemento HTML especificando su (tagname=nombre de la etiqueta).
     // este método nos permite crear elementos html
-    parrafo.innerHTML = "Tu personaje atacó con "+ataqueJugador+", el personaje del enemigo atacó con "+ataqueEnemigo+"; entonces "+resultado; 
     // Le pasamos el valor de la etiqueta creada por el anterior método. 
-    sectionMensaje.appendChild(parrafo); //le añade el texto al elemento creado. 
+     //le añade el texto al elemento creado.
+    ataqueDelJugador.appendChild(nuevoAtaqueDelJugador)
+    ataqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo) 
   
     
 
