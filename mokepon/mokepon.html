@@ -8,6 +8,7 @@
     <script src="./js/mokepon.js"></script> <!-- El atributo defer, permite que todo el 
         html se carge primero y luego el script, para que  no existan errores, pero en este caso
         se va a realizar por medio de un evento.-->
+    <link rel="shortcut icon" href="img/slide-mpss-0-2x.png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +16,12 @@
 </head>
 <body>
     <section id="seleccionar-personaje">
-        <h1 class="title"> COMBATE POR LA  PRINCESA PEACH! 🔥💧🪓</h1>
+        <h1 class="title"> COMBATE POR LA  PRINCESA PEACH! </h1>
 
         <h2 class="subtitle">Elige tu personaje</h2>
 
         <div class="tarjetas">
+
             <input type="radio" name="personaje" id="mario">
             <label id="Mario" class="tarjeta-de-personajes" for="mario">
                 <p>Mario</p>
@@ -50,7 +52,7 @@
         
         <h2 class="subtitle">Elige tu ataque</h2>
 
-        <div>
+        <div class="container-botones-ataques">
             <button id="boton-fuego" class="boton-de-ataque"><span>Fuego🔥</span></button>
             <button id="boton-agua" class="boton-de-ataque"><span>Agua💧</span></button>
             <button id="boton-hacha" class="boton-de-ataque"><span>Hacha🪓</span></button>
@@ -64,9 +66,6 @@
                 <button id="boton-reiniciar">Volver a jugar</button>
             </section>
         </div>
-
-           
-        
 
         <div class="container-ataques">
             <div class="bloque-jugador">
