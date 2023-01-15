@@ -1,43 +1,67 @@
+const sectionAtaque = document.getElementById("seleccionar-ataque")
+const sectionReiniciar =document.getElementById("reiniciar");
+const botonPersonajeJugador = document.getElementById("boton-personaje");
+const botonFuego = document.getElementById("boton-fuego");
+const botonAgua = document.getElementById("boton-agua");
+const botonHacha = document.getElementById("boton-hacha");
+const botanReiniciar = document.getElementById("boton-reiniciar")
+const sectionPersonaje = document.getElementById("seleccionar-personaje");
+const inputMario = document.getElementById("mario");
+const inputLuigi = document.getElementById("luigi");
+const inputBowser = document.getElementById("bowser");
+const spanPersonajeJugador = document.getElementById("personaje-jugador");
+
+const spanPersonajeEnemigo = document.getElementById("personaje-enemigo");
+
+const spanVidasJudador = document.getElementById("vidas-jugador");
+const spanVidasEnemigo = document.getElementById("vidas-enemigo")
+const sectionMensaje = document.getElementById("resultado");
+const ataqueDelJugador = document.getElementById("ataque-del-jugador");
+const ataqueDelEnemigo = document.getElementById("ataque-del-enemigo");
+
+//Array, una estructura de dato estático, que nos permite agrupar valores en una sola variable
+
+let personajes = []
+
 let ataqueJugador; //Se declararon variables globales para que se invoquen en cualquir función.
 let ataqueEnemigo;
 let PersonajeJugador;
 let vidasJugador= 3;
 let vidasEnemigo= 3;
 
+//Programación orientada a objetos (clases y objetos)
+class Personaje {
+    constructor(nombre,foto,vida){
+        this.nombre = nombre;
+        this.foto = foto;
+        this.vida = vida;
+    }
+}
+
+let mario = new Personaje('Mario','./assets/pwd.png',5)
+
+let luigi = new Personaje('Luigi','./assets/Luigi.png',5)
+
+let bowser = new Personaje('Bowser','./assets/Bowser_Stock_Art_2021.png',5)
+
+personajes.push(mario,luigi,bowser)
+
+console.log(personajes)
+
 function iniciarJuego(){
-    let sectionAtaque = document.getElementById("seleccionar-ataque")
     sectionAtaque.style.display = "none";
-    let sectionReiniciar =document.getElementById("reiniciar");
     sectionReiniciar.style.display = "none";
-    let botonPersonajeJugador = document.getElementById("boton-personaje");
     // El metodo getElementById nos permite hacer referencia a un elemento de html por medio de su ID
     botonPersonajeJugador.addEventListener("click", seleccionarPersonajeJugador);
-
-    let botonFuego = document.getElementById("boton-fuego");
     botonFuego.addEventListener("click",ataqueFuego)
-    let botonAgua = document.getElementById("boton-agua");
     botonAgua.addEventListener("click",ataqueAgua);
-    let botonHacha = document.getElementById("boton-hacha");
     botonHacha.addEventListener("click",ataqueHacha);
-
-    let botanReiniciar = document.getElementById("boton-reiniciar");
     botanReiniciar.addEventListener("click",reiniciarJuego)
-
 }
 
 function seleccionarPersonajeJugador(){
-    let sectionAtaque = document.getElementById("seleccionar-ataque");
     sectionAtaque.style.display = "flex"
-
-    let sectionPersonaje = document.getElementById("seleccionar-personaje");
     sectionPersonaje.style.display = "none"
-
-    
-
-    const inputMario = document.getElementById("mario");
-    const inputLuigi = document.getElementById("luigi");
-    const inputBowser = document.getElementById("bowser");
-    const spanPersonajeJugador = document.getElementById("personaje-jugador");
 
     if (inputMario.checked){
         spanPersonajeJugador.innerHTML = "Mario";
@@ -57,7 +81,6 @@ function seleccionarPersonajeJugador(){
 
 function seleccionarPersonajeEnemigo(){
     let jugadaEnemigo = 0;
-    const spanPersonajeEnemigo = document.getElementById("personaje-enemigo");
     if(PersonajeJugador=="Mario"){
         jugadaEnemigo = Aleatorio(1,2)
         if(jugadaEnemigo==1){
@@ -111,8 +134,6 @@ function ataqueAleatorioEnemigo(){
 }
 
 function resultadosCombate(){
-    let spanVidasJudador = document.getElementById("vidas-jugador");
-    let spanVidasEnemigo = document.getElementById("vidas-enemigo");
     if (ataqueJugador==ataqueEnemigo){
         crearMensaje("EMPATE😶");
     }else if((ataqueJugador=="FUEGO" && ataqueEnemigo=="HACHA")||(ataqueJugador=="AGUA" && ataqueEnemigo =="FUEGO")||(ataqueJugador=="HACHA" && ataqueEnemigo== "AGUA")){
@@ -136,29 +157,16 @@ function revisarVidas(){
 }
 
 function crearMensajeFinal(resultadofinal){
-    let sectionMensaje = document.getElementById("resultado")
-
     sectionMensaje.innerHTML = resultadofinal
-    
-
-    let botonFuego = document.getElementById("boton-fuego");
     botonFuego.disabled = true;
-    let botonAgua = document.getElementById("boton-agua");
-    botonAgua.disabled = true;
-    let botonHacha = document.getElementById("boton-hacha");
+    botonAgua.disabled = true;    
     botonHacha.disabled = true;
-
-    let sectionReiniciar =document.getElementById("reiniciar");
     sectionReiniciar.style.display = "block"
 }
 
 function crearMensaje(resultado){
 
-    let sectionMensaje = document.getElementById("resultado");
-    let ataqueDelJugador = document.getElementById("ataque-del-jugador");
-    let ataqueDelEnemigo = document.getElementById("ataque-del-enemigo"); // Se obtiene la sección del mensaje.
-    
-    
+     // Se obtiene la sección del mensaje.
     let nuevoAtaqueDelJugador = document.createElement("p")
     let nuevoAtaqueDelEnemigo = document.createElement("p")
 
@@ -172,9 +180,6 @@ function crearMensaje(resultado){
      //le añade el texto al elemento creado.
     ataqueDelJugador.appendChild(nuevoAtaqueDelJugador)
     ataqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo) 
-  
-    
-
 }
 
 function reiniciarJuego(){
