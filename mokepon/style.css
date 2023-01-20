@@ -132,7 +132,7 @@ input:checked + label{
     margin:  20px;
     font-family:'Acme', sans-serif;
     font-size: 20px;
-    width: 160px;
+    width: 100px;
     height: 40px;
     font-weight: 500;
     cursor: pointer;

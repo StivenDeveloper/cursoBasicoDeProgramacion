@@ -1,9 +1,7 @@
 const sectionAtaque = document.getElementById("seleccionar-ataque")
 const sectionReiniciar =document.getElementById("reiniciar");
 const botonPersonajeJugador = document.getElementById("boton-personaje");
-const botonFuego = document.getElementById("boton-fuego");
-const botonAgua = document.getElementById("boton-agua");
-const botonHacha = document.getElementById("boton-hacha");
+
 const botanReiniciar = document.getElementById("boton-reiniciar")
 const sectionPersonaje = document.getElementById("seleccionar-personaje");
 
@@ -11,13 +9,15 @@ const spanPersonajeJugador = document.getElementById("personaje-jugador");
 
 const spanPersonajeEnemigo = document.getElementById("personaje-enemigo");
 
-const spanVidasJudador = document.getElementById("vidas-jugador");
-const spanVidasEnemigo = document.getElementById("vidas-enemigo")
+let spanVidasJudador = document.getElementById("vidas-jugador");
+let  spanVidasEnemigo = document.getElementById("vidas-enemigo")
 const sectionMensaje = document.getElementById("resultado");
 const ataqueDelJugador = document.getElementById("ataque-del-jugador");
 const ataqueDelEnemigo = document.getElementById("ataque-del-enemigo");
 
 const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
+
+const contenerdorAtaques = document.getElementById('botones-ataques')
 
 
 
@@ -25,15 +25,25 @@ const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
 
 let personajes = []
 
-let ataqueJugador; //Se declararon variables globales para que se invoquen en cualquir función.
-let ataqueEnemigo;
-let PersonajeJugador;
+let ataqueJugador =[]; //Se declararon variables globales para que se invoquen en cualquir función.
+let ataqueEnemigo =[];
+let personajeJugador;
 let opcionDePersonajes;
+let opcionDeAtaques;
 let inputLuigi;
 let inputMario; 
 let inputBowser; 
-let vidasJugador= 3;
-let vidasEnemigo= 3;
+let ataquesPerEnemigo
+let victoriasJugador = 0;
+let victoriasEnemigo = 0;
+let botonFuego; 
+let botonAgua;
+let botonHacha; 
+let indexAtaqueJugador;
+let indexAtaqueEnemigo;
+let botones =[];
+
+
 
 //Programación orientada a objetos (clases y objetos)
 class Personaje {
@@ -74,7 +84,7 @@ luigi.ataques.push(
     {nombre: '🪓', id:'boton-hacha'},
 )
 
-mario.ataques.push(
+bowser.ataques.push(
     {nombre: '🪓', id:'boton-hacha'},
     {nombre: '🪓', id:'boton-hacha'},
     {nombre: '🪓', id:'boton-hacha'},
@@ -120,9 +130,7 @@ function iniciarJuego(){
     })
     // El metodo getElementById nos permite hacer referencia a un elemento de html por medio de su ID
     botonPersonajeJugador.addEventListener("click", seleccionarPersonajeJugador);
-    botonFuego.addEventListener("click",ataqueFuego)
-    botonAgua.addEventListener("click",ataqueAgua);
-    botonHacha.addEventListener("click",ataqueHacha);
+    
     botanReiniciar.addEventListener("click",reiniciarJuego)
 }
 
@@ -132,100 +140,158 @@ function seleccionarPersonajeJugador(){
 
     if (inputMario.checked){
         spanPersonajeJugador.innerHTML = inputMario.id;
-        PersonajeJugador = inputMario.id;
+        personajeJugador = inputMario.id;
     }else if (inputLuigi.checked){
         spanPersonajeJugador.innerHTML = inputLuigi.id;
-        PersonajeJugador = inputLuigi.id;
+        personajeJugador = inputLuigi.id;
     }else if (inputBowser.checked){
         spanPersonajeJugador.innerHTML = inputBowser.id;
-        PersonajeJugador = inputBowser.id;
+        personajeJugador = inputBowser.id;
     } else{
         alert("Selecciona a un personaje para el ataque");
         reiniciarJuego();
     }
+    extraerAtaques(personajeJugador);
     seleccionarPersonajeEnemigo();
 }
 
-function seleccionarPersonajeEnemigo(){
-    let jugadaEnemigo = 0;
-    jugadaEnemigo = Aleatorio(0,(personajes.length-2))
-    if(PersonajeJugador==inputMario.id){
-        if(jugadaEnemigo==1){
-            spanPersonajeEnemigo.innerHTML = inputLuigi.id;
-        }else{
-            spanPersonajeEnemigo.innerHTML = inputBowser.id;
-        }
-    }else if(PersonajeJugador== inputLuigi.id){
-        if(jugadaEnemigo==1){
-            spanPersonajeEnemigo.innerHTML = inputMario.id;
-        }else{
-            spanPersonajeEnemigo.innerHTML = inputBowser.id;
-    }
-    } else if(PersonajeJugador== inputBowser.id){
-        if(jugadaEnemigo==1){
-            spanPersonajeEnemigo.innerHTML = inputMario.id;
-        }else{
-            spanPersonajeEnemigo.innerHTML = inputLuigi.id;
+function extraerAtaques(personajeJugador){
+    let ataques;
+    for (let i = 0; i < personajes.length; i++) {
+        if(personajeJugador=== personajes[i].nombre){
+            ataques = personajes[i].ataques;
         }
     }
+    mostrarAtaques(ataques);
 }
 
-function ataqueFuego(){
-    ataqueJugador = "FUEGO"
-    ataqueAleatorioEnemigo();
-}
+function mostrarAtaques(ataques){
+    ataques.forEach((ataque)=>{
+        opcionDeAtaques = `
+        <button id=${ataque.id} class="boton-de-ataque BAtaque"><span>${ataque.nombre}</span></button>
+        `
+    contenerdorAtaques.innerHTML += opcionDeAtaques; 
+    })
 
-function ataqueAgua(){
-    ataqueJugador = "AGUA"
-    ataqueAleatorioEnemigo();
-}
+    botonFuego = document.getElementById("boton-fuego");
+    botonAgua = document.getElementById("boton-agua");
+    botonHacha = document.getElementById("boton-hacha");
+    botones = document.querySelectorAll('.BAtaque')
 
-function ataqueHacha(){
-    ataqueJugador= "HACHA"
-    ataqueAleatorioEnemigo();
-}
+    
 
-function ataqueAleatorioEnemigo(){
-    let ataqueAleatorio=Aleatorio(1,3);
-    if(ataqueAleatorio==1){
-        ataqueEnemigo= "FUEGO";
-    }else if(ataqueAleatorio==2){
-        ataqueEnemigo= "AGUA";
-    }else{
-        ataqueEnemigo= "HACHA";
-    }
-    resultadosCombate();
+
    
 }
 
-function resultadosCombate(){
-    if (ataqueJugador==ataqueEnemigo){
-        crearMensaje("EMPATE😶");
-    }else if((ataqueJugador=="FUEGO" && ataqueEnemigo=="HACHA")||(ataqueJugador=="AGUA" && ataqueEnemigo =="FUEGO")||(ataqueJugador=="HACHA" && ataqueEnemigo== "AGUA")){
-        crearMensaje("GANASTE🎉");
-        vidasEnemigo--;
-        spanVidasEnemigo.innerHTML = vidasEnemigo
-    }else{
-        crearMensaje("PERDISTE😒");
-        vidasJugador--;
-        spanVidasJudador.innerHTML = vidasJugador
-    }
-    revisarVidas();
+function secuenciaAtaque(){
+    botones.forEach((boton) =>{
+        boton.addEventListener('click', (e)=>{
+            if (e.target.textContent ==='🔥') {
+                ataqueJugador.push("FUEGO")
+                console.log(ataqueJugador)
+                boton.style.background = '#112f58'
+                boton.disabled = true;
+            }else if (e.target.textContent ==='💧') {
+                ataqueJugador.push("AGUA")
+                console.log(ataqueJugador)
+                boton.style.background = '#112f58'
+                boton.disabled = true;
+            }else{
+                ataqueJugador.push("HACHA")
+                console.log(ataqueJugador)
+                boton.style.background = '#112f58'
+                boton.disabled = true;
+            }
+            ataqueAleatorioEnemigo()
+        
+        })
+    })
+    
 }
 
-function revisarVidas(){
-    if (vidasEnemigo==0){
-        crearMensajeFinal("🎉🎉¡GANASTE LA PARTIDA!🎉🎉")
-    }else if(vidasJugador==0){
-        crearMensajeFinal("😭😭¡PERDISTE LA PARTIDA!😭😭")
+
+function seleccionarPersonajeEnemigo(){
+    jugadaEnemigo = Aleatorio(0,(personajes.length-1));
+    
+    spanPersonajeEnemigo.innerHTML = personajes[jugadaEnemigo].nombre;
+    ataquesPerEnemigo = personajes[jugadaEnemigo].ataques;
+    secuenciaAtaque()
+}
+
+
+
+function ataqueAleatorioEnemigo(){
+    let ataqueAleatorio=Aleatorio(0,ataquesPerEnemigo.length-1);
+    if(ataqueAleatorio==0 || ataqueAleatorio == 1){
+        ataqueEnemigo.push('FUEGO')
+    }else if(ataqueAleatorio==3 || ataqueAleatorio == 4){
+        ataqueEnemigo.push('AGUA');
+    }else{
+        ataqueEnemigo.push('HACHA');
+    }
+
+    console.log(ataqueEnemigo)
+    iniciarCompate();
+   
+}
+
+function iniciarCompate(){
+    if (ataqueJugador.length===5) {
+        resultadosCombate()
+    }
+}
+
+function indexAmbosOponetes(jugador,enemigo){
+    indexAtaqueJugador = ataqueJugador[jugador];
+    indexAtaqueEnemigo = ataqueEnemigo[enemigo];
+}
+function resultadosCombate(){
+
+    for (let index = 0; index < ataqueJugador.length; index++) {
+        if (ataqueJugador[index]=== ataqueEnemigo[index]) {
+            crearMensaje("EMPATE😶")
+            indexAmbosOponetes(index,index)
+        }else if ((ataqueJugador[index] ==="FUEGO" && ataqueDelEnemigo[index] ==="HACHA")  ){
+            indexAmbosOponetes(index,index)
+            crearMensaje("GANASTE🎉")
+            victoriasJugador++
+            spanVidasJudador.innerHTML= victoriasJugador;
+
+        }else if ((ataqueJugador[index]==="AGUA" && ataqueEnemigo[index] ==="FUEGO")) {
+            indexAmbosOponetes(index,index)
+            crearMensaje("GANASTE🎉")
+            victoriasJugador++
+            spanVidasJudador.innerHTML= victoriasJugador;
+        }else if ((ataqueJugador[index]==="HACHA" && ataqueEnemigo[index]== "AGUA")){
+            indexAmbosOponetes(index,index)
+            crearMensaje("GANASTE🎉")
+            victoriasJugador++
+            spanVidasJudador.innerHTML= victoriasJugador;
+        }else{
+            indexAmbosOponetes(index,index)
+            crearMensaje("PERDISTE😒")
+            victoriasEnemigo++
+            spanVidasEnemigo.innerHTML = victoriasEnemigo;
+        }
+        
+    }
+    revisarVictorias();
+}
+
+function revisarVictorias(){
+    if (victoriasJugador=== victoriasEnemigo){
+        crearMensajeFinal("Esto fue un empate")
+    }else if(victoriasJugador > victoriasEnemigo){
+        crearMensajeFinal("🎉¡FELICITACIONES!🎉 Ganaste")
+    }else{
+        crearMensajeFinal("😭¡LO SIENTO!😭 Perdiste")
     }
 }
 
 function crearMensajeFinal(resultadofinal){
     sectionMensaje.innerHTML = resultadofinal
-    botonFuego.disabled = true;
-    botonAgua.disabled = true;    
-    botonHacha.disabled = true;
+    
     sectionReiniciar.style.display = "block"
 }
 
@@ -235,9 +301,9 @@ function crearMensaje(resultado){
     let nuevoAtaqueDelJugador = document.createElement("p")
     let nuevoAtaqueDelEnemigo = document.createElement("p")
 
-    sectionMensaje.innerHTML = resultado
-    nuevoAtaqueDelJugador.innerHTML = ataqueJugador
-    nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo
+    sectionMensaje.innerHTML = resultado;
+    nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador;
+    nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo;
 
     // Este método nos permite crear un elemento HTML especificando su (tagname=nombre de la etiqueta).
     // este método nos permite crear elementos html
