@@ -21,6 +21,8 @@ const contenerdorAtaques = document.getElementById('botones-ataques')
 
 
 
+
+
 //Array, una estructura de dato estático, que nos permite agrupar valores en una sola variable
 
 let personajes = []
@@ -141,6 +143,7 @@ function seleccionarPersonajeJugador(){
     if (inputMario.checked){
         spanPersonajeJugador.innerHTML = inputMario.id;
         personajeJugador = inputMario.id;
+
     }else if (inputLuigi.checked){
         spanPersonajeJugador.innerHTML = inputLuigi.id;
         personajeJugador = inputLuigi.id;
@@ -154,6 +157,8 @@ function seleccionarPersonajeJugador(){
     extraerAtaques(personajeJugador);
     seleccionarPersonajeEnemigo();
 }
+
+
 
 function extraerAtaques(personajeJugador){
     let ataques;
@@ -191,16 +196,19 @@ function secuenciaAtaque(){
                 ataqueJugador.push("FUEGO")
                 console.log(ataqueJugador)
                 boton.style.background = '#112f58'
+                boton.style.cursor = 'not-allowed'
                 boton.disabled = true;
             }else if (e.target.textContent ==='💧') {
                 ataqueJugador.push("AGUA")
                 console.log(ataqueJugador)
                 boton.style.background = '#112f58'
+                boton.style.cursor = 'not-allowed'
                 boton.disabled = true;
             }else{
                 ataqueJugador.push("HACHA")
                 console.log(ataqueJugador)
                 boton.style.background = '#112f58'
+                boton.style.cursor = 'not-allowed'
                 boton.disabled = true;
             }
             ataqueAleatorioEnemigo()
@@ -233,7 +241,7 @@ function ataqueAleatorioEnemigo(){
 
     console.log(ataqueEnemigo)
     iniciarCompate();
-   
+    
 }
 
 function iniciarCompate(){
@@ -249,9 +257,9 @@ function indexAmbosOponetes(jugador,enemigo){
 function resultadosCombate(){
 
     for (let index = 0; index < ataqueJugador.length; index++) {
-        if (ataqueJugador[index]=== ataqueEnemigo[index]) {
-            crearMensaje("EMPATE😶")
+        if (ataqueJugador[index] === ataqueEnemigo[index]) {
             indexAmbosOponetes(index,index)
+            crearMensaje("EMPATE")
         }else if ((ataqueJugador[index] ==="FUEGO" && ataqueDelEnemigo[index] ==="HACHA")  ){
             indexAmbosOponetes(index,index)
             crearMensaje("GANASTE🎉")
@@ -276,7 +284,7 @@ function resultadosCombate(){
         }
         
     }
-    revisarVictorias();
+     revisarVictorias();
 }
 
 function revisarVictorias(){
