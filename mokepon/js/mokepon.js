@@ -19,6 +19,12 @@ const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
 
 const contenerdorAtaques = document.getElementById('botones-ataques')
 
+//----------------SECCIÓN CANVA-------------------------------------------------------//
+
+const sectionVerMapa = document.getElementById('ver-mapa');
+const mapa = document.getElementById('mapa');
+//------------------------------------------------------------------------------------//
+
 
 
 
@@ -44,8 +50,10 @@ let botonHacha;
 let indexAtaqueJugador;
 let indexAtaqueEnemigo;
 let botones =[];
-
-
+//----------------SECCIÓN CANVA-------------------------------------------------------//
+let lienzo = mapa.getContext('2d')
+let intervalo;
+//-----------------------------------------------------------------------------------//
 
 //Programación orientada a objetos (clases y objetos)
 class Personaje {
@@ -54,6 +62,15 @@ class Personaje {
         this.foto = foto;
         this.vida = vida;
         this.ataques = [];
+        this.x = 20;
+        this.y = 30;
+        this.ancho = 80;
+        this.alto = 80;
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
+        this.velocidadX =0;
+        this.velocidadY =0;
+
     }
 }
 
@@ -101,6 +118,7 @@ personajes.push(mario,luigi,bowser);
 function iniciarJuego(){
     sectionAtaque.style.display = "none";
     sectionReiniciar.style.display = "none";
+    sectionVerMapa.style.display = 'none';
 
     // (Clase 50) A continuación, captura el elemento con document.getElementById(). Utilizaremos una nueva    función        llamada forEach() que todos los arreglos poseen para poder iterar cada elemento del mismo.   El    término “iterar” hace referencia a recorrer los elementos de un array, uno por uno en el mismo orden en el que    se  //encuentran.
 
@@ -137,8 +155,11 @@ function iniciarJuego(){
 }
 
 function seleccionarPersonajeJugador(){
-    sectionAtaque.style.display = "flex"
-    sectionPersonaje.style.display = "none"
+    // sectionAtaque.style.display = "flex"
+    sectionPersonaje.style.display = "none";
+
+    sectionVerMapa.style.display ='flex';
+    intervalo = setInterval(pintarPersonje,50)
 
     if (inputMario.checked){
         spanPersonajeJugador.innerHTML = inputMario.id;
@@ -182,11 +203,6 @@ function mostrarAtaques(ataques){
     botonAgua = document.getElementById("boton-agua");
     botonHacha = document.getElementById("boton-hacha");
     botones = document.querySelectorAll('.BAtaque')
-
-    
-
-
-   
 }
 
 function secuenciaAtaque(){
@@ -224,6 +240,7 @@ function seleccionarPersonajeEnemigo(){
     
     spanPersonajeEnemigo.innerHTML = personajes[jugadaEnemigo].nombre;
     ataquesPerEnemigo = personajes[jugadaEnemigo].ataques;
+    console.log(ataquesPerEnemigo)
     secuenciaAtaque()
 }
 
@@ -328,6 +345,43 @@ function reiniciarJuego(){
 function Aleatorio(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
 }
+
+
+function pintarPersonje(){
+    mario.x = mario.x + mario.velocidadX;
+    mario.y = mario.y + mario.velocidadY
+    lienzo.clearRect(0, 0, mapa.width, mapa.height)
+    lienzo.drawImage(
+        mario.mapaFoto,
+        mario.x,
+        mario.y,
+        mario.ancho,
+        mario.alto
+        )
+}
+
+function moverDerecha(){
+    mario.velocidadX = 5;
+}
+
+function moverIzquierda(){
+    mario.velocidadX = -5;
+}
+
+function moverAbajo(){
+    mario.velocidadY = 5;
+}
+
+function moverArriba(){
+    mario.velocidadY = -5;
+}
+
+function detenerMovimiento(){
+    mario.velocidadX =0;
+    mario.velocidadY =0;
+}
+
+
 
 
 

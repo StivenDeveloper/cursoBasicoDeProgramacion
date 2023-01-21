@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
 </head>
-<>
+
     <section id="seleccionar-personaje">
         <h1 class="title"> COMBATE POR LA  PRINCESA PEACH! </h1>
 
@@ -28,9 +28,17 @@
 
         <button id="boton-personaje">Seleccionar</button>
     </section>
+ <!--SECCIÓN MAPAS CON CANVAS----------------------------------------------------------------------------------------------->
+    <section id="ver-mapa">
+        <h1 class="subtitle">Recorre el mapa con tu personaje</h1>
+        <canvas id="mapa"></canvas>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">⬆️</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">⬅️</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">⬇️</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">➡️</button>
+    </section>
 
-   
-    
+ <!------------------------------------------------------------------------------------------------------------------------->   
     <section id="seleccionar-ataque">
        
         <img class="container-img-ataque" src="img/588319.png" alt="">
