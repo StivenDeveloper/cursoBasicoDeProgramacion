@@ -56,19 +56,31 @@ let intervalo;
 let mapaBackground = new Image()
 mapaBackground.src = './assets/mapa.png'
 let personajeJugadorObjeto;
+let alturaQueBuscamos
+let anchoDelMapa = window.innerWidth - 20
+const anchoMaximoDelMapa = 600
+
+if (anchoDelMapa > anchoMaximoDelMapa){
+    anchoDelMapa = anchoMaximoDelMapa -20
+}
+
+alturaQueBuscamos = anchoDelMapa * 600 / 800
+
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
 //-----------------------------------------------------------------------------------//
 
 //Programación orientada a objetos (clases y objetos)
 class Personaje {
-    constructor(nombre,foto,vida,fotoMapa, x=10, y=10, ){
+    constructor(nombre,foto,vida,fotoMapa ){
         this.nombre = nombre;
         this.foto = foto;
         this.vida = vida;
         this.ataques = [];
-        this.x = x
-        this.y = y
         this.ancho = 80;
         this.alto = 80;
+        this.x = Aleatorio(0,mapa.width - this.ancho)
+        this.y = Aleatorio(0,mapa.height - this.alto)
         this.mapaFoto = new Image()
         this.mapaFoto.src = fotoMapa
         this.velocidadX =0;
@@ -100,11 +112,11 @@ let luigi = new Personaje('Luigi','./assets/Luigi.png',5,'./assets/luigi_th.png'
 
 let bowser = new Personaje('Bowser','./assets/Bowser_Stock_Art_2021.png',5,'./assets/bowser_th.png')
 
-let marioEnemigo = new Personaje('Mario','./assets/pwd.png',5,'./assets/mario_th.png',80,120)
+let marioEnemigo = new Personaje('Mario','./assets/pwd.png',5,'./assets/mario_th.png')
 
-let luigiEnemigo = new Personaje('Luigi','./assets/Luigi.png',5,'./assets/luigi_th.png',150,95)
+let luigiEnemigo = new Personaje('Luigi','./assets/Luigi.png',5,'./assets/luigi_th.png')
 
-let bowserEnemigo = new Personaje('Bowser','./assets/Bowser_Stock_Art_2021.png',5,'./assets/bowser_th.png',200,190)
+let bowserEnemigo = new Personaje('Bowser','./assets/Bowser_Stock_Art_2021.png',5,'./assets/bowser_th.png')
 
 mario.ataques.push(
     {nombre: '🔥', id:'boton-fuego'},
@@ -453,8 +465,7 @@ function sePresionoUnaTacla(event){
 }
 
 function iniciarMapa(){
-    mapa.width  = 620
-    mapa.height = 440
+   
     personajeJugadorObjeto = obtenerObjetoMascota(personajeJugador)
     intervalo = setInterval(pintarCanvas,50)
     window.addEventListener('keydown',sePresionoUnaTacla)
@@ -497,7 +508,6 @@ function revisarColision(enemigo){
     sectionAtaque.style.display = "flex"
     sectionVerMapa.style.display = 'none'
     seleccionarPersonajeEnemigo(enemigo);
-    // alert('Hay Colisión con ' + enemigo.nombre)
 }
 
 

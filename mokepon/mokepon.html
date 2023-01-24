@@ -30,12 +30,14 @@
     </section>
  <!--SECCIÓN MAPAS CON CANVAS----------------------------------------------------------------------------------------------->
     <section id="ver-mapa">
-        <h1 class="subtitle">Recorre el mapa con tu personaje</h1>
+        <h1 class="subtitle-mapa">Recorre el mapa con tu personaje</h1>
         <canvas id="mapa"></canvas>
         <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">⬆️</button>
-        <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">⬅️</button>
-        <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">⬇️</button>
-        <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">➡️</button>
+        <div>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">⬅️</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">⬇️</button>
+            <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">➡️</button>
+        </div>
     </section>
 
  <!------------------------------------------------------------------------------------------------------------------------->   
@@ -43,7 +45,7 @@
        
         <img class="container-img-ataque" src="img/588319.png" alt="">
         
-        <h2 class="subtitle">Elige tu ataque</h2>
+        <h2 class="subtitle-mapa">Elige tu ataque</h2>
 
         <div id="botones-ataques" class="container-botones-ataques">
             
