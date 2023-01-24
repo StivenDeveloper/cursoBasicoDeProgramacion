@@ -53,24 +53,37 @@ let botones =[];
 //----------------SECCIÓN CANVA-------------------------------------------------------//
 let lienzo = mapa.getContext('2d')
 let intervalo;
+let mapaBackground = new Image()
+mapaBackground.src = './assets/mapa.png'
+let personajeJugadorObjeto;
 //-----------------------------------------------------------------------------------//
 
 //Programación orientada a objetos (clases y objetos)
 class Personaje {
-    constructor(nombre,foto,vida){
+    constructor(nombre,foto,vida,fotoMapa, x=10, y=10, ){
         this.nombre = nombre;
         this.foto = foto;
         this.vida = vida;
         this.ataques = [];
-        this.x = 20;
-        this.y = 30;
+        this.x = x
+        this.y = y
         this.ancho = 80;
         this.alto = 80;
         this.mapaFoto = new Image()
-        this.mapaFoto.src = foto
+        this.mapaFoto.src = fotoMapa
         this.velocidadX =0;
         this.velocidadY =0;
 
+    }
+
+    pintarPersonaje() {
+        lienzo.drawImage(
+            this.mapaFoto,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto
+            )
     }
 }
 
@@ -81,13 +94,27 @@ class Personaje {
 // lograr que el navegador muestre esos datos dentro del DOM de una página web.
 // Una vez tengas los datos preparados en tu código Javascript //
 
-let mario = new Personaje('Mario','./assets/pwd.png',5)
+let mario = new Personaje('Mario','./assets/pwd.png',5,'./assets/mario_th.png')
 
-let luigi = new Personaje('Luigi','./assets/Luigi.png',5)
+let luigi = new Personaje('Luigi','./assets/Luigi.png',5,'./assets/luigi_th.png')
 
-let bowser = new Personaje('Bowser','./assets/Bowser_Stock_Art_2021.png',5)
+let bowser = new Personaje('Bowser','./assets/Bowser_Stock_Art_2021.png',5,'./assets/bowser_th.png')
+
+let marioEnemigo = new Personaje('Mario','./assets/pwd.png',5,'./assets/mario_th.png',80,120)
+
+let luigiEnemigo = new Personaje('Luigi','./assets/Luigi.png',5,'./assets/luigi_th.png',150,95)
+
+let bowserEnemigo = new Personaje('Bowser','./assets/Bowser_Stock_Art_2021.png',5,'./assets/bowser_th.png',200,190)
 
 mario.ataques.push(
+    {nombre: '🔥', id:'boton-fuego'},
+    {nombre: '🔥', id:'boton-fuego'},
+    {nombre: '🔥', id:'boton-fuego'},
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '🪓', id:'boton-hacha'},
+)
+
+marioEnemigo.ataques.push(
     {nombre: '🔥', id:'boton-fuego'},
     {nombre: '🔥', id:'boton-fuego'},
     {nombre: '🔥', id:'boton-fuego'},
@@ -102,8 +129,23 @@ luigi.ataques.push(
     {nombre: '🔥', id:'boton-fuego'},
     {nombre: '🪓', id:'boton-hacha'},
 )
+luigiEnemigo.ataques.push(
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '💧', id:'boton-agua'},
+    {nombre: '🔥', id:'boton-fuego'},
+    {nombre: '🪓', id:'boton-hacha'},
+)
 
 bowser.ataques.push(
+    {nombre: '🪓', id:'boton-hacha'},
+    {nombre: '🪓', id:'boton-hacha'},
+    {nombre: '🪓', id:'boton-hacha'},
+    {nombre: '🔥', id:'boton-fuego'},
+    {nombre: '💧', id:'boton-agua'},
+)
+
+bowserEnemigo.ataques.push(
     {nombre: '🪓', id:'boton-hacha'},
     {nombre: '🪓', id:'boton-hacha'},
     {nombre: '🪓', id:'boton-hacha'},
@@ -155,12 +197,11 @@ function iniciarJuego(){
 }
 
 function seleccionarPersonajeJugador(){
-    // sectionAtaque.style.display = "flex"
+    
     sectionPersonaje.style.display = "none";
 
-    sectionVerMapa.style.display ='flex';
-    intervalo = setInterval(pintarPersonje,50)
-
+    
+    
     if (inputMario.checked){
         spanPersonajeJugador.innerHTML = inputMario.id;
         personajeJugador = inputMario.id;
@@ -176,7 +217,8 @@ function seleccionarPersonajeJugador(){
         reiniciarJuego();
     }
     extraerAtaques(personajeJugador);
-    seleccionarPersonajeEnemigo();
+    sectionVerMapa.style.display ='flex';
+    iniciarMapa();
 }
 
 
@@ -235,12 +277,9 @@ function secuenciaAtaque(){
 }
 
 
-function seleccionarPersonajeEnemigo(){
-    jugadaEnemigo = Aleatorio(0,(personajes.length-1));
-    
-    spanPersonajeEnemigo.innerHTML = personajes[jugadaEnemigo].nombre;
-    ataquesPerEnemigo = personajes[jugadaEnemigo].ataques;
-    console.log(ataquesPerEnemigo)
+function seleccionarPersonajeEnemigo(enemigo){
+    spanPersonajeEnemigo.innerHTML = enemigo.nombre
+    ataquesPerEnemigo = enemigo.ataques;
     secuenciaAtaque()
 }
 
@@ -347,40 +386,119 @@ function Aleatorio(min,max){
 }
 
 
-function pintarPersonje(){
-    mario.x = mario.x + mario.velocidadX;
-    mario.y = mario.y + mario.velocidadY
+function pintarCanvas(){
+
+    personajeJugadorObjeto.x = personajeJugadorObjeto.x + personajeJugadorObjeto.velocidadX;
+    personajeJugadorObjeto.y = personajeJugadorObjeto.y + personajeJugadorObjeto.velocidadY
     lienzo.clearRect(0, 0, mapa.width, mapa.height)
     lienzo.drawImage(
-        mario.mapaFoto,
-        mario.x,
-        mario.y,
-        mario.ancho,
-        mario.alto
-        )
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    personajeJugadorObjeto.pintarPersonaje()
+    marioEnemigo.pintarPersonaje()
+    luigiEnemigo.pintarPersonaje()
+    bowserEnemigo.pintarPersonaje()
+    if (personajeJugadorObjeto.velocidadX !== 0 || personajeJugadorObjeto.velocidadY !==0) {
+        revisarColision(marioEnemigo)
+        revisarColision(luigiEnemigo)
+        revisarColision(bowserEnemigo)
+
+    }
 }
 
 function moverDerecha(){
-    mario.velocidadX = 5;
+    
+    personajeJugadorObjeto.velocidadX = 5;
 }
 
 function moverIzquierda(){
-    mario.velocidadX = -5;
+    
+    personajeJugadorObjeto.velocidadX = -5;
 }
 
 function moverAbajo(){
-    mario.velocidadY = 5;
+    personajeJugadorObjeto.velocidadY = 5;
 }
 
 function moverArriba(){
-    mario.velocidadY = -5;
+    personajeJugadorObjeto.velocidadY = -5;
 }
 
-function detenerMovimiento(){
-    mario.velocidadX =0;
-    mario.velocidadY =0;
+function detenerMovimiento(){   
+    personajeJugadorObjeto.velocidadX =0;
+    personajeJugadorObjeto.velocidadY =0;
 }
 
+function sePresionoUnaTacla(event){
+    switch (event.key) {
+        case 'ArrowUp':
+            moverArriba();
+            break;
+        case 'ArrowDown':
+            moverAbajo();
+            break;
+        case 'ArrowLeft':
+            moverIzquierda();
+            break;
+        case 'ArrowRight':
+            moverDerecha();
+            break;
+        default:
+            break;
+    }
+}
+
+function iniciarMapa(){
+    mapa.width  = 620
+    mapa.height = 440
+    personajeJugadorObjeto = obtenerObjetoMascota(personajeJugador)
+    intervalo = setInterval(pintarCanvas,50)
+    window.addEventListener('keydown',sePresionoUnaTacla)
+    window.addEventListener('keyup',detenerMovimiento)
+}
+
+function obtenerObjetoMascota(){
+    for (let i = 0; i < personajes.length; i++) {
+        if(personajeJugador=== personajes[i].nombre){
+            return personajes[i]
+        }
+    }
+}
+
+function revisarColision(enemigo){
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo= enemigo.x
+
+    const arribaPersonaje =
+    personajeJugadorObjeto.y
+    const abajoPersonaje =
+    personajeJugadorObjeto.y +personajeJugadorObjeto.alto
+    const derechaPersonaje =
+    personajeJugadorObjeto.x +personajeJugadorObjeto.ancho
+    const  izquiardaPersonaje =
+    personajeJugadorObjeto.x
+
+    if ( 
+        abajoPersonaje < arribaEnemigo ||
+        arribaPersonaje > abajoEnemigo ||
+        derechaPersonaje < izquierdaEnemigo ||
+        izquiardaPersonaje > derechaEnemigo 
+    ){
+        return
+    }
+    detenerMovimiento();
+    clearInterval(intervalo)
+    sectionAtaque.style.display = "flex"
+    sectionVerMapa.style.display = 'none'
+    seleccionarPersonajeEnemigo(enemigo);
+    // alert('Hay Colisión con ' + enemigo.nombre)
+}
 
 
 
