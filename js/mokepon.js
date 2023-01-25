@@ -58,13 +58,13 @@ mapaBackground.src = './assets/mapa.png'
 let personajeJugadorObjeto;
 let alturaQueBuscamos
 let anchoDelMapa = window.innerWidth - 20
-const anchoMaximoDelMapa = 600
+const anchoMaximoDelMapa = 450
 
 if (anchoDelMapa > anchoMaximoDelMapa){
     anchoDelMapa = anchoMaximoDelMapa -20
 }
 
-alturaQueBuscamos = anchoDelMapa * 600 / 800
+alturaQueBuscamos = anchoDelMapa * 500 / 700
 
 mapa.width = anchoDelMapa
 mapa.height = alturaQueBuscamos

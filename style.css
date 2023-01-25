@@ -241,6 +241,46 @@ input:checked + label{
     border-radius: 20px;
 }
 
+@media(max-width:700px){
+    .title{
+        width: 100vw;
+        min-width: 375px ;
+        font-size: 20px;
+        align-items: center;
+        
+    }
+    #seleccionar-personaje{
+        width: 90vw;
+        min-width: 375px; 
+     }
+}
+
+@media(max-width: 660px){
+
+    .tarjetas, .container-botones-ataques{
+        flex-direction: column;
+    }
+
+    #mensajes{
+        width: 80vw;
+        min-width: 280px;
+    }
+
+    .container-ataques{
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    
+    }
+
+}
+
+
+
+.subtitle-mapa{
+    margin: 5px;
+}
+
+
 /* SECCIÓN CANVA */
 
 #ver-mapa{
@@ -263,25 +303,4 @@ input:checked + label{
 
 
 
-@media(max-width:700px){
-    .title{
-        width: 100vw;
-        min-width: 412px ;
-    }
-}
-
-@media(max-width: 412px){
-
-    .tarjetas, .container-botones-ataques{
-        flex-direction: column;
-    }
-    #seleccionar-personaje{
-       width: 90vw;
-       min-width: 412px; 
-    }
-}
-
-.subtitle-mapa{
-    margin: 5px;
-}
 
